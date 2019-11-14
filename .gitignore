@@ -1,0 +1,8 @@
+labs/bin/
+labs/project/
+labs/target/
+labs/build/
+labs/.idea
+labs/output/
+
+.idea
