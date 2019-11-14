@@ -11,12 +11,14 @@
 |57743417|5935710|Excel VBA QueryTable for new connection to Access db|2019-09-02T07:12:40.345
 
 - Table contains user regions of Stackoverflow's users: users.csv. We have 18 different regions
+  
 | user_id |region
 |--|--
 | 9003279 | KA
 | 2777687 | NY
 
 - And table comments contains comments of each post: comments.csv
+  
 | id | user_id | post_id |created_at
 |--|--|--|--
 | 100589675 | 330315 | 57029979 | 2019-07-14T19:12:17.113
