@@ -26,16 +26,20 @@
 | 100589677 | 10417280 | 56964710 | 2019-07-14T19:12:34.750
 
 - Data input:
-  - **labs/src/resources/posts.csv**
+  - **labs/src/resources/posts.csv** (~800k rows)
   - **labs/src/resources/users.csv** (~18k rows)
-  - **labs/src/resources/comments.csv**
+  - **labs/src/resources/comments.csv** (~10k rows)
+- Data input HDFS:
+  - **/data/spark-labs/input/posts.csv** (~3M rows)
+  - **/data/spark-labs/input/users.csv** (~18k rows)
+  - **/data/spark-labs/input/comments.csv** (~1M rows)
   
 ## Exercise
 - Exercise 1: Count number of users have any posts in each day.
   - Expected output: with column **count** is distinct users in day col **date**
 
 | date |count
-|--|--|--|--
+|--|--  
 | 2019-09-02 | 3000
 | 2019-09-01 | 2100
 
