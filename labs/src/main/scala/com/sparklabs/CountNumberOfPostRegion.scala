@@ -9,17 +9,19 @@ object CountNumberOfPostRegion {
     var inputPosts = "src/resources/posts.csv"
     var inputUsers = "src/resources/users.csv"
     var output = "src/output/count_number_of_post_region"
+    var master = "local[*]"
 
-    if (args.length == 4) {
-      inputPosts = args(1)
-      inputUsers = args(2)
-      output = args(3)
+    if (args.length >= 3) {
+      master = "yarn"
+      inputPosts = args(0)
+      inputUsers = args(1)
+      output = args(2)
     }
 
     val spark = SparkSession
       .builder()
       .appName("Spark Count Active Users Daily")
-      .master("local[*]")
+      .master(master)
       .getOrCreate()
 
     val postsDF = spark
@@ -43,9 +45,7 @@ object CountNumberOfPostRegion {
       .pivot("region")
       .agg(count(postsDF("id")))
       .write
-      .option("header", "true")
-      .option("delimiter", "\t")
       .mode(SaveMode.Overwrite)
-      .csv(output)
+      .parquet(output)
   }
 }

@@ -8,16 +8,18 @@ object CountActiveUsers {
   def main(args: Array[String]): Unit = {
     var input = "src/resources/posts.csv"
     var output = "src/resources/count_active_users"
+    var master = "local[*]"
 
-    if (args.length == 3) {
-      input = args(1)
-      output = args(2)
+    if (args.length >= 2) {
+      master = "yarn"
+      input = args(0)
+      output = args(1)
     }
 
     val spark = SparkSession
       .builder()
       .appName("Spark Count Active Users Daily")
-      .master("local[*]")
+      .master(master)
       .getOrCreate()
 
     spark
@@ -31,10 +33,8 @@ object CountActiveUsers {
       .agg(countDistinct("userId").as("countDistinct"))
       .orderBy(col("date").asc)
       .write
-      .option("header", "true")
-      .option("delimiter", "\t")
       .mode(SaveMode.Overwrite)
-      .csv(output)
+      .parquet(output)
 
   }
 }
