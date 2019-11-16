@@ -51,4 +51,13 @@
 | 2019-09-02 | 300 | 200 | 100 | 300 | ...
 | 2019-09-01 | 210 | 190 | 100 | 210 | ...
 
-- Exercise 3: Find top n - the most actived posts monthly (actived posts : have comments)
+- Exercise 3: Find top n - the most actived posts monthly (most actived posts : posts which have the most comments)
+    - Expected output: **month**, and n ids of posts which have the most comments in that **month**
+
+| month | post_ids
+|--|--
+|2019-09| 57743415,57743416,57743417
+|2019-08| 57743416,57743417,57743324
+|2019-07| 57743331,57743324,57743234
+|2019-06| 57743121,57743124,57743123
+|2019-05| 57742221,57742235,57742234
