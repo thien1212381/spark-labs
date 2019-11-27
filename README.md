@@ -37,6 +37,7 @@
 ## Exercise
 - Exercise 1: Count number of users have any posts in each day.
   - Expected output: with column **count** is distinct users in day col **date**
+  - Use both function distinct and approximate_distinct of spark to compare results.
 
 | date |count
 |--|--  
@@ -53,6 +54,7 @@
 
 - Exercise 3: Find top n - the most actived posts monthly (most actived posts : posts which have the most comments)
     - Expected output: **month**, and n ids of posts which have the most comments in that **month**
+    - Example: post_id 57743415 have the most comments in month 2019-09, more than post_id 57743416, ...
 
 | month | post_ids
 |--|--
@@ -61,3 +63,22 @@
 |2019-07| 57743331,57743324,57743234
 |2019-06| 57743121,57743124,57743123
 |2019-05| 57742221,57742235,57742234
+
+- Exercise 4: Count number of posts have at least one comment in month.
+    - Expected output: **month**, and number of posts
+    - Example: Have 3800 posts which have at least one comment in 2019-09
+
+| month | posts
+|--|--
+|2019-09| 3800
+|2019-08| 2623
+|2019-07| 1727
+
+- Exercise 5: Count number of comments all users have at least one post in month
+    - Expected output: **month**, and number of comments
+    - Example: Have 380 comments of all users which have at least one post in month 2019-09
+
+| month | comments
+|--|--
+|2019-09| 380
+|2019-08| 350
