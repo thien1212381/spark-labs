@@ -1,6 +1,16 @@
 
 # Presto Labs
 
+## Connect
+- ssh to server
+```
+ssh member1@118.68.168.182
+```
+- Run Presto Cli
+```
+/opt/presto --server 118.68.168.182:9090 --catalog hive --schema default
+```
+
 ## Data
 - We have a table contains post informations of Stackoverflow's users: posts.csv:
 
