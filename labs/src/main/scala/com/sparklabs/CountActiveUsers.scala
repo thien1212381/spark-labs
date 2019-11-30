@@ -7,7 +7,7 @@ import org.apache.spark.sql.{SaveMode, SparkSession}
 object CountActiveUsers {
   def main(args: Array[String]): Unit = {
     var input = "src/resources/posts.csv"
-    var output = "src/resources/count_active_users"
+    var output = "src/output/count_active_users"
     var master = "local[*]"
 
     if (args.length >= 2) {
@@ -26,11 +26,11 @@ object CountActiveUsers {
       .read
       .option("delimiter", "\t")
       .csv(input)
-      .toDF("id", "userId", "title", "creationDate")
-      .withColumn("createdAt", unix_timestamp(col("creationDate"), "yyyy-MM-dd'T'HH:mm:ss.SSS").cast(TimestampType))
-      .withColumn("date", to_date(col("createdAt")))
+      .toDF("id", "user_id", "title", "created_at")
+      .withColumn("created_at", unix_timestamp(col("created_at"), "yyyy-MM-dd'T'HH:mm:ss.SSS").cast(TimestampType))
+      .withColumn("date", to_date(col("created_at")))
       .groupBy("date")
-      .agg(countDistinct("userId").as("countDistinct"))
+      .agg(countDistinct("user_id").as("countDistinct"))
       .orderBy(col("date").asc)
       .write
       .mode(SaveMode.Overwrite)

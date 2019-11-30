@@ -6,7 +6,7 @@ import org.apache.spark.sql.functions.{col, substring}
 object CountActiveUsersSql {
   def main(args: Array[String]): Unit = {
     var input = "src/resources/posts.csv"
-    var output = "src/resources/count_active_users"
+    var output = "src/output/count_active_users"
     var master = "local[*]"
 
     if (args.length >= 2) {
@@ -22,11 +22,14 @@ object CountActiveUsersSql {
       .getOrCreate()
 
     spark.read.option("delimiter", "\t").csv(input)
-      .toDF("id", "userId", "title", "creationDate")
-      .withColumn("date", substring(col("creationDate"), 1, 10))
-      .createOrReplaceTempView("users")
+      .toDF("id", "user_id", "title", "created_at")
+      .withColumn("date", substring(col("created_at"), 1, 10))
+      .createOrReplaceTempView("posts")
 
-    val results = spark.sql("SELECT date, count(distinct userId) FROM users GROUP BY date")
+    val sql = "SELECT date, count(distinct user_id) FROM posts GROUP BY date"
+    // count distinct using approx_count_distinct
+    // val sql = "SELECT date, approx_count_distinct(user_id) FROM posts GROUP BY date"
+    val results = spark.sql(sql)
       .toDF("date", "userIds")
 
     results.repartition(1).write.option("header", "true").option("delimiter", ",").mode(SaveMode.Overwrite).csv(output)
