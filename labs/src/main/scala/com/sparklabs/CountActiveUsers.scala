@@ -1,6 +1,6 @@
 package com.sparklabs
 
-import org.apache.spark.sql.functions.{col, countDistinct, to_date, unix_timestamp}
+import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.TimestampType
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
@@ -27,8 +27,7 @@ object CountActiveUsers {
       .option("delimiter", "\t")
       .csv(input)
       .toDF("id", "user_id", "title", "created_at")
-      .withColumn("created_at", unix_timestamp(col("created_at"), "yyyy-MM-dd'T'HH:mm:ss.SSS").cast(TimestampType))
-      .withColumn("date", to_date(col("created_at")))
+      .withColumn("date", substring(col("created_at"), 1, 10))
       .groupBy("date")
       .agg(countDistinct("user_id").as("countDistinct"))
       .orderBy(col("date").asc)
